@@ -1,0 +1,87 @@
+{% url 'rent:bike_list' as bike_list %}
+<div class="row">
+  <div class="col-sm-12">
+    <nav class="navbar navbar-default navbar-trans navbar-expand-lg mt-2 mb-2">
+      <!-- Collapse button -->
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+        
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <span class="navbar-brand">Categories:</span>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == bike_list %} active {% endif %}" href="{% url 'rent:bike_list' %}">
+              All Bike
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+            {% for cat in cat_objects %}
+              <li class="nav-item">
+                <a class="nav-link {% if request.path == cat.get_absolute_url %} active {% endif %}" href="{{ cat.get_absolute_url }}">
+                  {{ cat }}
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            {% endfor %}
+            
+        </ul>
+        <!-- Links -->
+        <form action="{% url  'rent:bike_list' %} " class="form-inline" method="GET" role="Search">
+          <div class="md-form my-0">
+            <input name="q"  class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <input class="btn " type="submit" placeholder="Submit" >
+          </div>
+        </form>
+      </div>
+      <!-- Collapsible content -->
+    </nav>
+  </div>
+  {% for obj in objects %}
+    <div class="col-md-4">
+      <div class="card-box-a card-shadow">
+        <div class="img-box-a">
+          <img src="{{ obj.bike_image.url }}" alt="" class="img-a img-fluid">
+        </div>
+        <div class="card-overlay">
+          <div class="card-overlay-a-content">
+            <div class="card-header-a">
+              <h2 class="card-title-a">
+                <a href="{{ obj.get_cart_url }}">{{ obj.name }}</a>
+              </h2>
+            </div>
+            <div class="card-body-a">
+              <div class="price-box d-flex">
+                <a class="price-a btn btn-outline-success" href="{{ obj.get_cart_url }}">
+                  <span>{{ obj.rent_title }}</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-footer-a">
+              <ul class="card-info d-flex justify-content-around">
+                <li>
+                  <h4 class="card-info-title">{{ obj.speed }}</h4>
+                  <span>{{ obj.speed_limit }}</span>
+                </li>
+                <li>
+                  <h4 class="card-info-title">{{ obj.brand }}</h4>
+                  <span>{{ obj.brand_name }}</span>
+                </li>
+                <li>
+                  <h4 class="card-info-title">{{ obj.model }}</h4>
+                  <span>{{ obj.model_name }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+ 
+
+ 
+  <!--/ Property Single Star /-->
+<section style="margin-top:150px" class="property-single nav-arrow-b">
+    <div class="container">
+      <div class="row">
+      		<div class="col-sm-6 col-md-8 section-md-t3 mb-5">
+              	<div class="row">
+	                <div class="col-sm-12">
+	                  <div class="title-box-d">
+	                    <h3 class="title-d">Choose Your Destination</h3>
+	                    <p class="lead">Remember We Services Only Dhaka,Bangladesh.</p> 
+	                  </div>
+	                </div>
+	                <div class="col-sm-12">
+	                	<form action="" class="form-inline" method="GET" role="Search">
+					        <div class="md-form my-0">
+					            <input name="q"  class="form-control mr-sm-2" type="text" placeholder="Search Your Destination" aria-label="Search">
+					            <input class="btn btn-outline-success" type="submit" placeholder="Submit" >
+					          </div>
+				        </form>
+				    </div>
+              	</div>
+              	<div class="row wow fadeIn mt-2">
+              		{% for obj in destinition %}
+				        <div class="col-lg-6 col-md-6 mb-4">			            
+				            <div class="card">			              
+				              	<div class="card-body text-center">
+				                 	<!-- Material unchecked -->
+									<div class="form-check">
+										<p class="lead">Select Your Destinition</p>
+										<hr>
+									    <input type="checkbox" class="form-check-input" id="materialUnchecked">
+									    <label class="form-check-label" for="materialUnchecked">{{ obj.destinition_straight }}</label>
+									    <br>
+									    <input type="checkbox" class="form-check-input" id="materialUnchecked">
+									    <label class="form-check-label" for="materialUnchecked">{{ obj.destinition_reverse }}</label>
+									</div>
+				       				<hr>              
+					                <p><strong>{{ obj.price }} Taka</strong></p>
+					                <a href="">
+					                	<button class="btn btn-outline-success">Confirm Rent</button>
+					                </a>				                
+				              	</div>			              
+				            </div>
+				        </div>
+					{% endfor %}
+      			</div>
+		    </div>
+	        <div class="col-sm-6 col-md-4">
+	          	<div>
+	          		<p>Your Selected Bike</p>
+	          		<hr>
+		            <div class="carousel-item-b">
+		              <img class="img-fluid" height="250" width="250" src="{{ object.bike_image.url }}" alt="">
+		            </div>
+	          	</div>
+	          	<div class="row justify-content-between">
+	          		<div class="col-md-6">
+	          			<p class="lead">{{ object.name }}</p>
+	          			<hr>
+		                <div class="summary-list">
+		                  <ul class="list">
+		                    <li class="d-flex justify-content-between">
+		                      <strong>{{ object.brand }}:</strong>
+		                      <span>{{ object.brand_name }}</span>
+		                    </li>
+		                    <li class="d-flex justify-content-between">
+		                      <strong>{{ object.model }}</strong>
+		                      <span>{{ object.model_name }}</span>
+		                    </li>
+		                    <li class="d-flex justify-content-between">
+		                      <strong>{{ object.speed }}</strong>
+		                      <span>{{ object.speed_limit }}</span>
+		                    </li>
+		                  </ul>
+		                </div>
+		            </div> 
+	          	</div>
+	        </div>     
+      	</div>
+    </div>
+</section>
+  <!--/ Property Single End /-->
+
+
+
+
+{% endblock %}

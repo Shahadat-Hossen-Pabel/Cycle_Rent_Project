@@ -14,8 +14,3 @@ def home_view(request):
 
 	}
 	return render(request,'home.html',context)
-
-
-
-def property_view(request):
-	return render(request,'property.html')

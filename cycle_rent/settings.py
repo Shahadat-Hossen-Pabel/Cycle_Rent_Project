@@ -30,7 +30,9 @@ INSTALLED_APPS = [
 
     #my_apps.
     'home',
-    'about'
+    'about',
+    'contact',
+    'rent'
 ]
 
 MIDDLEWARE = [

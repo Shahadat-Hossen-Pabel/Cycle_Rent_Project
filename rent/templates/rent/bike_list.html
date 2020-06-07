@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            {% for obj in header %}
+              <h1 class="title-single">{{ obj.title }}</h1>
+              <span class="color-text-a">{{ obj.text }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Bike Rent
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
+
+  <!--/ Property Grid Star /-->
+  <section class="property-grid grid">
+    <div class="container">
+      {% include 'rent/bikes_section.html' with objects=object_list cat_objects=category%}
+      <div class="row">
+        <div class="col-sm-12">
+          {% if is_paginated %}
+            <nav class="pagination-a">
+              <ul class="pagination justify-content-end">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number}}" tabindex="">
+                      <span class="ion-ios-arrow-back"></span>
+                    </a>
+                  </li>
+                {% endif %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{ page_obj.number}}">{{ page_obj.number}}</a>
+                </li>
+                {% if page_obj.has_next %}
+                  <li class="page-item next">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number}}">
+                      <span class="ion-ios-arrow-forward"></span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Property Grid End /-->
+{% endblock %}
