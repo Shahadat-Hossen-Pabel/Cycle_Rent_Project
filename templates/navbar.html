@@ -1,6 +1,6 @@
 {% url 'home' as home %}
 {% url 'about' as about %}
-{% url 'rent:bike_list' as bike_list %}
+{% url 'rent:picup_point' as picup_point %}
 {% url 'contact' as contact %}
 {% url 'auth_logout' as logout %}
 {% url 'auth_login' as login %}
@@ -29,7 +29,7 @@
             <a class="nav-link {% if request.path == about %}active {% endif %}" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path == bike_list %}active {% endif %}" href="{% url 'rent:bike_list' %}">Go For Rent</a>
+            <a class="nav-link {% if request.path == picup_point %}active {% endif %}" href="{% url 'rent:picup_point' %}">Go For Rent</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if request.path == contact %}active {% endif %}" href="{% url 'contact' %}">Contact</a>

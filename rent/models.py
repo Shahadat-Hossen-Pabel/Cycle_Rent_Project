@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
 
@@ -21,6 +22,7 @@ def image_upload_to_bike(instance,filename):
 
 class Bike(models.Model):
 	name = models.CharField(max_length=20)
+	price = models.IntegerField()
 	slug = models.SlugField(unique=True)
 	rent_title = models.CharField(max_length=12)
 	speed = models.CharField(max_length=12)
@@ -57,14 +59,56 @@ class BikeCategory(models.Model):
             'slug': self.slug
         })
 
-class DestinitionSelect(models.Model):
-	destinition_straight = models.CharField(max_length=120)
-	destinition_reverse = models.CharField(max_length=120)
-	price = models.IntegerField()
-	active = models.BooleanField(default=True)
+
+class SelectPoint(models.Model):
+	select_point = models.CharField(max_length=120)
 
 	def __str__(self):
-		return self.destinition_straight
+		return self.select_point
+
+	def add_to_area(self):
+		return reverse("rent:add_to_area", kwargs={
+            'id': self.id
+        })
+
+class NotUse(models.Model):
+	title = models.CharField(max_length=12)
+	dont_use =  models.ForeignKey(SelectPoint, on_delete=models.CASCADE,blank=True,null=True)
+
+	def __str__(self):
+		return self.title
+
+
+
+class PickupPoint(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	banner_image = models.ImageField()
+	banner_title = models.CharField(max_length=120)
+	banner_year_title = models.CharField(max_length=120)
+	banner_creative_title = models.CharField(max_length=120)
+
+class BookedArea(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	selectet_area = models.ForeignKey(SelectPoint, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.selectet_area.select_point
+
+class FinalRent(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	email = models.EmailField(null=True)
+	bike_name = models.ForeignKey(Bike, on_delete=models.CASCADE)
+	start_date = models.DateField()
+	start_time = models.TimeField()
+	end_date = models.DateField()
+	end_time = models.TimeField()
+
+	def __str__(self):
+		return user.username
+
+
+
+
 
 
 

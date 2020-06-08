@@ -7,51 +7,42 @@
 
  
   <!--/ Property Single Star /-->
-<section style="margin-top:150px" class="property-single nav-arrow-b">
+<section style="margin-top:100px" class="property-single nav-arrow-b">
     <div class="container">
       <div class="row">
       		<div class="col-sm-6 col-md-8 section-md-t3 mb-5">
               	<div class="row">
 	                <div class="col-sm-12">
 	                  <div class="title-box-d">
-	                    <h3 class="title-d">Choose Your Destination</h3>
-	                    <p class="lead">Remember We Services Only Dhaka,Bangladesh.</p> 
+	                    <h3 class="title-d">Choose Your Time</h3>
 	                  </div>
 	                </div>
 	                <div class="col-sm-12">
-	                	<form action="" class="form-inline" method="GET" role="Search">
-					        <div class="md-form my-0">
-					            <input name="q"  class="form-control mr-sm-2" type="text" placeholder="Search Your Destination" aria-label="Search">
-					            <input class="btn btn-outline-success" type="submit" placeholder="Submit" >
-					          </div>
-				        </form>
+
+	                	<form method="POST" class="form-group">
+	                		{% csrf_token %}
+							
+	                		
+	                		<label for="app">Your Selected Bike:</label>
+	                		bike_name
+	                		<input value="{{ object.name }}" class="form-control" type="text" id="" name="">
+	                		<br>
+			             	<label for="app">PickUp Time:</label>
+			             	<input class="form-control" type="date"  name="">
+			             	<br>
+							<input class="form-control" type="time" id="appt" name="">
+							<br>
+							<label for="app">PickOut Time:</label>
+							<input class="form-control" type="date" id="" name="">
+							<br>
+							<input class="form-control" type="time" id="appt" name="">
+							<br>
+							<input class="btn btn-lg btn-outline-success" type="submit">
+		            	</form>
+
 				    </div>
               	</div>
-              	<div class="row wow fadeIn mt-2">
-              		{% for obj in destinition %}
-				        <div class="col-lg-6 col-md-6 mb-4">			            
-				            <div class="card">			              
-				              	<div class="card-body text-center">
-				                 	<!-- Material unchecked -->
-									<div class="form-check">
-										<p class="lead">Select Your Destinition</p>
-										<hr>
-									    <input type="checkbox" class="form-check-input" id="materialUnchecked">
-									    <label class="form-check-label" for="materialUnchecked">{{ obj.destinition_straight }}</label>
-									    <br>
-									    <input type="checkbox" class="form-check-input" id="materialUnchecked">
-									    <label class="form-check-label" for="materialUnchecked">{{ obj.destinition_reverse }}</label>
-									</div>
-				       				<hr>              
-					                <p><strong>{{ obj.price }} Taka</strong></p>
-					                <a href="">
-					                	<button class="btn btn-outline-success">Confirm Rent</button>
-					                </a>				                
-				              	</div>			              
-				            </div>
-				        </div>
-					{% endfor %}
-      			</div>
+              	
 		    </div>
 	        <div class="col-sm-6 col-md-4">
 	          	<div>
@@ -67,6 +58,10 @@
 	          			<hr>
 		                <div class="summary-list">
 		                  <ul class="list">
+		                  	<li class="d-flex justify-content-between">
+		                      <strong>Hr Rate:</strong>
+		                      <span>{{ object.price }}Taka</span>
+		                    </li>
 		                    <li class="d-flex justify-content-between">
 		                      <strong>{{ object.brand }}:</strong>
 		                      <span>{{ object.brand_name }}</span>
