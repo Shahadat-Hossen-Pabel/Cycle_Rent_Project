@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Bike,Header,BikeCategory,PickupPoint,SelectPoint,BookedArea,NotUse,FinalRent
+from .models import Bike,Header,BikeCategory,PickupPoint,SelectPoint,BookedArea,NotUse,FinalRent,BookedBike
 from django.views.generic import ListView,DetailView
 from django.views.generic.base import View
 from django.views.generic.edit import FormMixin
@@ -22,7 +22,7 @@ from .forms import FinalForm
 def pickup_view(request):
 	pickpoint = PickupPoint.objects.get(user=request.user)
 	select_pickup = SelectPoint.objects.all()
-	not_use = NotUse.objects.all()[:1]
+	not_use = NotUse.objects.all()
 
 
 	context = {
@@ -83,30 +83,49 @@ class BikeDetailView(DetailView):
 		return context
 
 
+def add_to_bike(request,slug):
+	#get the area.
+	get_bike = get_object_or_404(Bike,slug=slug)
+	#create the area into BookedArea
+	create_bike = BookedBike.objects.create(
+		user=request.user,
+		bike=get_bike
+	)
+	return redirect("rent:continue_rent")
+
+
 def message_view(request):
 
 	return render(request,'rent/message.html')
 
 
 def form_view(request):
-	form = FinalForm(request.POST)
+	
+	form = FinalForm(request.POST or None)
+
 	context = {
 		'form':form
 	}
+
 	if form.is_valid():
-	    pickup_date = form.cleaned_data.get("pickup_date")
-	    pickup_time = form.cleaned_data.get("pickup_time")
-	    pickout_date = form.cleaned_data.get("pickout_date")
-	    pickout_time = form.cleaned_data.get("pickout_time")
+		email = form.cleaned_data.get("email")
+		number = form.cleaned_data.get("number")
+		pickup_date = form.cleaned_data.get("pickup_date")
+		pickup_time = form.cleaned_data.get("pickup_time")
+		pickout_date = form.cleaned_data.get("pickout_date")
+		pickout_time = form.cleaned_data.get("pickout_time")
 
 	    #print(name,email,password,confirm_password)
-	    final_rent = FinalRent()
-	    final_rent.user = request.user
-	    final_rent.start_date = pickup_date
-	    final_rent.start_time = pickup_time
-	    final_rent.end_date = pickout_date
-	    final_rent.end_time = pickout_time
-	    final_rent.save()
+		final_rent = FinalRent()
+		final_rent.user = request.user
+		final_rent.email = request.user.email
+		final_rent.number = number
+		final_rent.start_date = pickup_date
+		final_rent.start_time = pickup_time
+		final_rent.end_date = pickout_date
+		final_rent.end_time = pickout_time
+		final_rent.save()
+		return redirect("rent:message")
 	return render(request,'rent/form.html',context)
 
 

@@ -112,7 +112,7 @@
         </div>
        
       </div>
-      <a class="btn btn-outline-danger btn-lg" href="{% url 'rent:continue_rent' %}">Continue For Rent</a>
+      <a class="btn btn-outline-danger btn-lg" href="{{ object.get_add_bike_url }}">Continue For Rent</a>
     </div>
 
   </section>

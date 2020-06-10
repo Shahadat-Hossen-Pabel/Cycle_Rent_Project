@@ -44,6 +44,11 @@ class Bike(models.Model):
             'slug': self.slug
         })
 
+	def get_add_bike_url(self):
+		return reverse("rent:add_to_bike", kwargs={
+            'slug': self.slug
+        })
+
 
 class BikeCategory(models.Model):
 	title = models.CharField(max_length=120,unique=True)
@@ -66,10 +71,7 @@ class SelectPoint(models.Model):
 	def __str__(self):
 		return self.select_point
 
-	def add_to_area(self):
-		return reverse("rent:add_to_area", kwargs={
-            'id': self.id
-        })
+	
 
 class NotUse(models.Model):
 	title = models.CharField(max_length=12)
@@ -77,6 +79,11 @@ class NotUse(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def add_to_area(self):
+		return reverse("rent:add_to_area", kwargs={
+            'id': self.dont_use.id
+        })
 
 
 
@@ -87,6 +94,7 @@ class PickupPoint(models.Model):
 	banner_year_title = models.CharField(max_length=120)
 	banner_creative_title = models.CharField(max_length=120)
 
+
 class BookedArea(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	selectet_area = models.ForeignKey(SelectPoint, on_delete=models.CASCADE)
@@ -94,10 +102,17 @@ class BookedArea(models.Model):
 	def __str__(self):
 		return self.selectet_area.select_point
 
+class BookedBike(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.bike.name
+
 class FinalRent(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	#email = models.EmailField(null=True)
-	#bike_name = models.ForeignKey(Bike, on_delete=models.CASCADE)
+	email = models.EmailField(unique=True)
+	number = models.CharField(max_length=120)
 	start_date = models.DateField()
 	start_time = models.TimeField()
 	end_date = models.DateField()
