@@ -3,86 +3,121 @@
 
 
 {% block content %}
- 
 
- 
-  <!--/ Property Single Star /-->
-<section style="margin-top:100px" class="property-single nav-arrow-b">
+  <!--/ Intro Single star /-->
+  <section style="margin-top:100px" class="">
     <div class="container">
       <div class="row">
-      		<div class="col-sm-6 col-md-8 section-md-t3 mb-5">
-              	<div class="row">
-	                <div class="col-sm-12">
-	                  <div class="title-box-d">
-	                    <h3 class="title-d">Choose Your Time</h3>
-	                  </div>
-	                </div>
-	                <div class="col-sm-12">
-
-	                	<form method="POST" class="form-group">
-	                		{% csrf_token %}
-							
-	                		
-	                		<label for="app">Your Selected Bike:</label>
-	                		bike_name
-	                		<input value="{{ object.name }}" class="form-control" type="text" id="" name="">
-	                		<br>
-			             	<label for="app">PickUp Time:</label>
-			             	<input class="form-control" type="date"  name="">
-			             	<br>
-							<input class="form-control" type="time" id="appt" name="">
-							<br>
-							<label for="app">PickOut Time:</label>
-							<input class="form-control" type="date" id="" name="">
-							<br>
-							<input class="form-control" type="time" id="appt" name="">
-							<br>
-							<input class="btn btn-lg btn-outline-success" type="submit">
-		            	</form>
-
-				    </div>
-              	</div>
-              	
-		    </div>
-	        <div class="col-sm-6 col-md-4">
-	          	<div>
-	          		<p>Your Selected Bike</p>
-	          		<hr>
-		            <div class="carousel-item-b">
-		              <img class="img-fluid" height="250" width="250" src="{{ object.bike_image.url }}" alt="">
-		            </div>
-	          	</div>
-	          	<div class="row justify-content-between">
-	          		<div class="col-md-6">
-	          			<p class="lead">{{ object.name }}</p>
-	          			<hr>
-		                <div class="summary-list">
-		                  <ul class="list">
-		                  	<li class="d-flex justify-content-between">
-		                      <strong>Hr Rate:</strong>
-		                      <span>{{ object.price }}Taka</span>
-		                    </li>
-		                    <li class="d-flex justify-content-between">
-		                      <strong>{{ object.brand }}:</strong>
-		                      <span>{{ object.brand_name }}</span>
-		                    </li>
-		                    <li class="d-flex justify-content-between">
-		                      <strong>{{ object.model }}</strong>
-		                      <span>{{ object.model_name }}</span>
-		                    </li>
-		                    <li class="d-flex justify-content-between">
-		                      <strong>{{ object.speed }}</strong>
-		                      <span>{{ object.speed_limit }}</span>
-		                    </li>
-		                  </ul>
-		                </div>
-		            </div> 
-	          	</div>
-	        </div>     
-      	</div>
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">{{ object.name }}</h1>
+            
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href=".">Bike Description</a>
+              </li>
+             
+            </ol>
+          </nav>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
+  <!--/ Intro Single End /-->
+
+  <!--/ Property Single Star /-->
+  <section class="property-single nav-arrow-b">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+            <div class="carousel-item-b">
+              <img src="{{ object.bike_image.url }}" alt="">
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-4">
+              <div class="property-price d-flex justify-content-center foo">
+                <div class="card-header-c d-flex">
+                  <div class="card-box-ico">
+                    <h5 class="title-c">{{ object.price }} Taka/hr</h5>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="property-summary">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="title-box-d section-t4">
+                      <h3 class="title-d">Quick Summary</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary-list">
+                  <ul class="list">
+                    <li class="d-flex justify-content-between">
+                      <strong>Hr Rate::</strong>
+                      <span>{{ object.price }}Taka</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>{{ object.brand }}:</strong>
+                      <span>{{ object.brand_name }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>{{ object.model }}:</strong>
+                      <span>{{ object.model_name }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>{{ object.speed }}:</strong>
+                      <span>{{ object.speed_limit }}</span>
+                    </li>
+                   
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 col-lg-7 section-md-t3">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Cycle Description</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="property-description">
+                <p class="description color-text-a">
+                  Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
+                  neque, auctor sit amet
+                  aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
+                  Curabitur aliquet quam id dui posuere blandit. Mauris blandit aliquet elit, eget tincidunt
+                  nibh pulvinar quam id dui posuere blandit.
+                </p>
+                <p class="description color-text-a no-margin">
+                  Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget
+                  malesuada. Quisque velit nisi,
+                  pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+                </p>
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+       
+      </div>
+      <a class="btn btn-outline-danger btn-lg" href="{% url 'rent:continue_rent' %}">Continue For Rent</a>
+    </div>
+
+  </section>
   <!--/ Property Single End /-->
+
 
 
 

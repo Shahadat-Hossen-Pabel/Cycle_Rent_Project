@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+ 
+
+ 
+  <!--/ Property Single Star /-->
+<section  style="margin-top:100px" class="property-single nav-arrow-b offset-3">
+    <div class="container">
+      <div class="row">
+      		<div class="col-sm-6 col-md-12 section-md-t3 mb-5">
+              	<div class="row">
+	                <div class="col-sm-12">
+	                  <div class="title-box-d">
+	                    <h3 class="title-d">Choose Your Time</h3>
+	                  </div>
+	                </div>
+	                <div class="col-lg-8">
+	                	<form action="{% url 'rent:message' %}" method="POST" class="form-group">
+	                		{% csrf_token %}
+	                		{{form}}
+							<br>
+							<input class="btn btn-lg btn-outline-success" type="submit">
+		            	</form>
+				    </div>
+              	</div>
+              	
+		    </div>     
+      	</div>
+    </div>
+</section>
+  <!--/ Property Single End /-->
+
+
+
+
+{% endblock %}

@@ -96,15 +96,15 @@ class BookedArea(models.Model):
 
 class FinalRent(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	email = models.EmailField(null=True)
-	bike_name = models.ForeignKey(Bike, on_delete=models.CASCADE)
+	#email = models.EmailField(null=True)
+	#bike_name = models.ForeignKey(Bike, on_delete=models.CASCADE)
 	start_date = models.DateField()
 	start_time = models.TimeField()
 	end_date = models.DateField()
 	end_time = models.TimeField()
 
 	def __str__(self):
-		return user.username
+		return self.user.username
 
 
 
